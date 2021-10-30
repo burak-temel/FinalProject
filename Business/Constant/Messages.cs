@@ -8,5 +8,7 @@ namespace Business.Constant
     {
         public static string ProductAdded = "Product Added";
         public static string ProductNameInvalid = "Product name invalid";
+        public static string MaintenanceTime = "System currently maintenanced";
+        public static string ProductListed = "System currently maintenanced";
     }
 }

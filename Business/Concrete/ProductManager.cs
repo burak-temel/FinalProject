@@ -31,12 +31,16 @@ namespace Business.Concrete
         public IDataResult<List<Product>> GetAll()
         {
             // Koşullar burada yazılacak. Örnek yetkisi var mı?
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), "Products successfully get");
+            if (DateTime.Now.Hour == 16)
+            {
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductListed);
         }
 
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
-            return new DataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id), true, "Product successfully get");
+            return new DataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id), true, "Products successfully get");
         }
 
         public IDataResult<List<Product>> GetAllByUnitPrice(decimal min, decimal max)
@@ -52,6 +56,10 @@ namespace Business.Concrete
 
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
+            if (DateTime.Now.Hour == 16)
+            {
+                return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
+            }
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails(), "Product detail successfully get");
         }
 
